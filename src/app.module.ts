@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PapelCategoriaService } from './papelCategoria/categoria.service';
+import { PapelCategoriaModule } from './papelCategoria/categoria.module';
 
 @Module({
-  imports: [PapelCategoriaService],
+  imports: [PapelCategoriaModule],
   controllers: [],
   providers: [],
 })
