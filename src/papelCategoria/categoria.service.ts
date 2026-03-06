@@ -3,26 +3,37 @@ import { SqlValidaService } from "./sqlValida.service";
 import { getPool } from "src/database/pool";
 import { GerarExcelDto } from "./dto/gerarExcel.dto";
 import prisma from "prisma/connect.prisma";
+import { fila } from "src/filter/fila";
+import { CsvService } from "src/excel/criaCSV.service";
 
 
 
 @Injectable()
 export class PapelCategoriaService{
-    constructor(private readonly validaSql: SqlValidaService){}
+    constructor(private readonly validaSql: SqlValidaService, private readonly csvService: CsvService){}
 
     async gerarExcel(body: GerarExcelDto, id: string){
-        const registro = await prisma.con.findUnique({where: {id: id}})
+        return fila.add(async () => {
+            const registro = await prisma.con.findUnique({where: {id: id}})
 
-        if(!registro){
-            throw new BadRequestException("Id Não encontrado")
-        }
+            if(!registro){
+                throw new BadRequestException("Id Não encontrado")
+            }
 
-        this.validaSql.validaSql(registro.cod)
-        
-        const con = getPool(registro.url)
+            this.validaSql.validaSql(registro.cod)
+            
+            const con = getPool(registro.url)
 
-        const data = [ body.inicio, body.fim, body.extract || null ]
+            const sql = registro.cod
+                .replace("$1", `'${body.inicio}'`)
+                .replace("$2", `'${body.fim}'`)
+                .replace("$3", body.extract ? `'${body.extract}'` : "NULL")
 
-        const query = await con.query(registro.cod, data)
+            return await this.csvService.criaCsv(
+                con,
+                sql
+            )
+
+        })
     }
 }

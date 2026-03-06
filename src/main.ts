@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter)
   app.use(helmet())
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true,}),)
-  app.enableCors({origin: ['https://devPrice.com', ], methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], credentials: true,})
+  app.enableCors({origin: ['http://localhost:3000', ], methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], credentials: true,})
   
   await app.listen(process.env.PORT ?? 3000);
   console.log(`Api Rodando na Porta ${process.env.PORT ?? 3000}`)
