@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { SqlValidaService } from "./sqlValida.service";
 import { getPool } from "src/database/pool";
 import { GerarExcelDto } from "./dto/gerarExcel.dto";
-import prisma from "prisma/con";
+import prisma from "prisma/connect.prisma";
 
 
 
