@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PapelCategoriaController } from './categoria.controller';
 import { PapelCategoriaService } from './categoria.service';
-import { SqlValidaService } from './validaSQL.service';
+import { SqlValidaService } from './utils/validaSQL.service';
 import { CsvService } from 'src/excel/criaCSV.service';
-import { ExecutaConsultaService } from './executaConsulta.service';
+import { ExecutaConsultaService } from './utils/executaConsulta.service';
 
 @Module({
   imports: [],

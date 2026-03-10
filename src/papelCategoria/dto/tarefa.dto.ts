@@ -1,6 +1,6 @@
-import { IsDateString, IsOptional } from "class-validator"
+import { IsDateString, IsEmail, IsOptional } from "class-validator"
 
-export class GerarExcelDto{
+export class TarefaDto{
     
     @IsOptional()
     @IsDateString()

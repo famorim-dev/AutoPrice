@@ -16,9 +16,8 @@ export class ExecutaConsultaService{
 
         const fluxo = cliente.query(consulta)
 
-        fluxo.on("end", () => {
-            cliente.release()
-        })
+        fluxo.on("end", () => cliente.release())
+        fluxo.on("error", () => cliente.release())
 
         return fluxo
     }
