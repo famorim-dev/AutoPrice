@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { AllExceptionsFilter } from './filter/exceptionsGlobal';
+import { AllExceptionsFilter } from './middleware/exceptionsGlobal';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 

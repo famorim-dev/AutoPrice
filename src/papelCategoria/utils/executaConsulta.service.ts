@@ -12,13 +12,13 @@ export class ExecutaConsultaService{
         const connect = getPool(con)
         const cliente = await connect.connect()
 
-        const consulta  = new QueryStream(sql)
+        const consulta  = new QueryStream(sql, [], { batchSize: 20000 })
 
-        const fluxo = cliente.query(consulta)
+        const dados = cliente.query(consulta)
 
-        fluxo.on("end", () => cliente.release())
-        fluxo.on("error", () => cliente.release())
+        dados.on("end", () => cliente.release())
+        dados.on("error", () => cliente.release())
 
-        return fluxo
+        return dados
     }
 }
