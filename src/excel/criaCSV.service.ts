@@ -27,10 +27,9 @@ export class CsvService {
 
       sheet.addRow(row).commit();
     }
-
     await sheet.commit();
     await workbook.commit();
-
+    
     return arquivo
   }
 }

@@ -20,14 +20,13 @@ export class PapelCategoriaService{
         }
 
         const sql = this.validaSql.validaSql(body.inicio!, body.fim!, body.extract! ,registro.cod)
-        console.log(sql)
 
         const executor = await this.executaConsulta.executa(
             registro.url,
             sql
         )
 
-        const csv = await this.csvService.criaCsvEmPasta(executor, path.join(process.cwd(), 'src', 'excel', 'excelFinal'), `dados_${Date.now()}.xlsx`)
+        const csv = this.csvService.criaCsvEmPasta(executor, path.join(process.cwd(), 'src', 'excel', 'excelFinal'), `dados_${Date.now()}.xlsx`)
 
         return "Excel sendo gerado!"
     }
